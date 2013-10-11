@@ -2,7 +2,9 @@
 <html>
 <head>
 	<title>Module-X</title>
-	<script src="oogl-1.0.0.min.js"></script>
+	<script src="jquery-2.0.3.min.js"></script>
+	<script src="oogl-1.0.0.js"></script>
+	<script src="Camera.js"></script>
 	<style>
 html,body {
 	margin: 0px;
@@ -19,27 +21,70 @@ canvas#canvas {
 <body>
 	<canvas id="canvas"></canvas>
 	<script>
-var gl;
+var oogl, width, height;
+
+function startGame(assets) {
+	oogl.clearColor(0, 0, 0, 1);
+	oogl.enable(oogl.CULL_FACE);
+	oogl.enable(oogl.DEPTH_TEST);
+
+	var camera = new Camera();
+	var modules = new Modules(assets);
+
+	var loop = new OOGL.RenderLoop(function () {
+		oogl.clear(oogl.DEPTH_BUFFER_BIT);
+		modules.draw(camera);
+		oogl.flush();
+	}).start();
+
+	$(window).keydown(function (event) {
+		switch (event.which) {
+		case 37: // left
+			break;
+		case 38: // up
+			break;
+		case 39: // right
+			break;
+		case 40: // down
+			break;
+		default:
+			return;
+		}
+		return false;
+	}).keyup(function (event) {
+		switch (event.which) {
+		case 37: // left
+			break;
+		case 38: // up
+			break;
+		case 39: // right
+			break;
+		case 40: // down
+			break;
+		default:
+			return;
+		}
+		return false;
+	});
+}
 
 OOGL(function () {
 	var canvas = document.querySelector('canvas#canvas');
 
-	// TODO set canvas dimensions
+	width = canvas.offsetWidth;
+	height = canvas.offsetHeight;
+	canvas.width = width;
+	canvas.height = height;
 
-	gl = new OOGL.Context(canvas);
+	oogl = new OOGL.Context(canvas);
 
-	new gl.Loader()
+	new oogl.Loader()
 		.queueJSON('level.json')
-		.queueProgram('mesh', ['in_Vertex'])
+		.queueProgram('base', ['vertex', 'texCoord'])
 		.loadAssets(function (assets)
 	{
 		document.title = 'Module-X';
-
-		gl.clearColor(0, 0, 0, 1);
-
-		gl.clear(gl.COLOR_BUFFER_BIT);
-		// TODO
-		gl.flush();
+		startGame(assets);
 	}, function (progress) {
 		document.title = Math.round(progress) + '%';
 	});
