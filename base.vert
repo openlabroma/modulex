@@ -24,6 +24,11 @@ void main() {
 		0, 0, 0, 1,
 		0, 0, 1, 1
 	) * mat4(
+		1, 0, 0, 0,
+		0, cos(camera.angle.x), -sin(camera.angle.x), 0,
+		0, sin(camera.angle.x), cos(camera.angle.x), 0,
+		0, 0, 0, 1
+	) * mat4(
 		cos(camera.angle.y), 0, -sin(camera.angle.y), 0,
 		0, 1, 0, 0,
 		sin(camera.angle.y), 0, cos(camera.angle.y), 0,

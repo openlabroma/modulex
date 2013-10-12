@@ -57,6 +57,11 @@ function Camera() {
 	var walkVelocity = 75;
 	var turnVelocity = Math.PI;
 
+	this.rotate = function (dx, dy) {
+		angle.x += dx * turnVelocity;
+		angle.y += dy * turnVelocity;
+	};
+
 	this.tick = function (dt) {
 		dt /= 1000;
 		var ds = walkVelocity * dt;
