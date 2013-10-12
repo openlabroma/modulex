@@ -101,7 +101,7 @@ function Modules(assets) {
 	var arrayMap = {};
 	modules.forEach(function (module) {
 		if (!arrayMap[module.path]) {
-			moduleArrays[module.path] = readArrays(assets.getData('modules/' + module.path));
+			arrayMap[module.path] = readArrays(assets.getData('modules/' + module.path));
 		}
 	});
 
