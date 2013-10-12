@@ -139,10 +139,12 @@ OOGL(function () {
 
 	new oogl.Loader()
 		.queueJSON('level.json')
-		.queueJSON('modules/test.json')
-		.queueJSON('modules/1.json')
-		.queueJSON('modules/2.json')
-		.queueJSON('modules/3.json')
+		.queueJSON('modules/door.json')
+		.queueJSON('modules/left.json')
+		.queueJSON('modules/right.json')
+		.queueJSON('modules/long.json')
+		.queueJSON('modules/short.json')
+		.queueJSON('modules/tee.json')
 		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
 		.loadAssets(function (assets)
 	{

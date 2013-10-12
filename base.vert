@@ -14,7 +14,7 @@ attribute vec4 vertex;
 attribute vec3 normal;
 attribute vec2 texCoord;
 
-varying vec3 vertNormal;
+varying vec4 vertNormal;
 varying vec2 vertTexCoord;
 
 void main() {
@@ -37,7 +37,7 @@ void main() {
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
-		-camera.position.x, -15.5, -camera.position.y, 1
+		-camera.position.x, -90, -camera.position.y, 1
 	) * mat4(
 		1, 0, 0, 0,
 		0, 1, 0, 0,
@@ -49,6 +49,13 @@ void main() {
 		-sin(angle), 0, cos(angle), 0,
 		0, 0, 0, 1
 	) * vertex;
-	vertNormal = normal;
+
+	vertNormal = mat4(
+		cos(angle), 0, sin(angle), 0,
+		0, 1, 0, 0,
+		-sin(angle), 0, cos(angle), 0,
+		0, 0, 0, 1
+	) * vec4(normal, 1);
+
 	vertTexCoord = texCoord;
 }

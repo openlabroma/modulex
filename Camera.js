@@ -54,7 +54,7 @@ function Camera() {
 		keys.rightStrafe = false;
 	};
 
-	var walkVelocity = 75;
+	var walkVelocity = 512;
 	var turnVelocity = Math.PI;
 
 	this.rotate = function (dx, dy) {
