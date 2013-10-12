@@ -2,7 +2,6 @@
 <html>
 <head>
 	<title>Module-X</title>
-	<script src="jquery-2.0.3.min.js"></script>
 	<script src="oogl-1.0.0.js"></script>
 	<script src="Camera.js"></script>
 	<script src="Modules.js"></script>
@@ -38,8 +37,8 @@ function startGame(assets) {
 		oogl.flush();
 	}).start();
 
-	$(window).keydown(function (event) {
-		switch (event.which) {
+	window.addEventListener('keydown', function (event) {
+		switch (event.keyCode) {
 		case 37: // left
 			camera.startLeft();
 			break;
@@ -55,9 +54,11 @@ function startGame(assets) {
 		default:
 			return;
 		}
-		return false;
-	}).keyup(function (event) {
-		switch (event.which) {
+		event.preventDefault();
+	}, false);
+
+	window.addEventListener('keyup', function (event) {
+		switch (event.keyCode) {
 		case 37: // left
 			camera.stopLeft();
 			break;
@@ -73,7 +74,7 @@ function startGame(assets) {
 		default:
 			return;
 		}
-		return false;
+		event.preventDefault();
 	});
 }
 
