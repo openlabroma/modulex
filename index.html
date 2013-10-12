@@ -63,6 +63,12 @@ function startGame(assets) {
 		case 68:
 			camera.startStrafeRight();
 			break;
+		case 83:
+			camera.startDown();
+			break;
+		case 87:
+			camera.startUp();
+			break;
 		default:
 			return;
 		}
@@ -88,6 +94,12 @@ function startGame(assets) {
 			break;
 		case 68:
 			camera.stopStrafeRight();
+			break;
+		case 83:
+			camera.stopDown();
+			break;
+		case 87:
+			camera.stopUp();
 			break;
 		default:
 			return;
