@@ -3,8 +3,10 @@ function Camera() {
 		x: 0,
 		z: 0
 	};
-
-	var angle = 0;
+	var angle = {
+		x: 0,
+		y: 0
+	};
 
 	var keys = {
 		left: false,
@@ -64,26 +66,26 @@ function Camera() {
 		var dz = 0;
 
 		if (keys.up) {
-			dx += ds * -Math.sin(angle);
-			dz += ds * Math.cos(angle);
+			dx += ds * -Math.sin(angle.y);
+			dz += ds * Math.cos(angle.y);
 		}
 		if (keys.down) {
-			dx -= ds * -Math.sin(angle);
-			dz -= ds * Math.cos(angle);
+			dx -= ds * -Math.sin(angle.y);
+			dz -= ds * Math.cos(angle.y);
 		}
 		if (keys.left) {
-			angle += da;
+			angle.y += da;
 		}
 		if (keys.right) {
-			angle -= da;
+			angle.y -= da;
 		}
 		if (keys.leftStrafe) {
-			dx += ds * -Math.sin(angle + Math.PI / 2);
-			dz += ds * Math.cos(angle + Math.PI / 2);
+			dx += ds * -Math.sin(angle.y + Math.PI / 2);
+			dz += ds * Math.cos(angle.y + Math.PI / 2);
 		}
 		if (keys.rightStrafe) {
-			dx += ds * -Math.sin(angle - Math.PI / 2);
-			dz += ds * Math.cos(angle - Math.PI / 2);
+			dx += ds * -Math.sin(angle.y - Math.PI / 2);
+			dz += ds * Math.cos(angle.y - Math.PI / 2);
 		}
 
 		position.x += dx;
@@ -92,6 +94,6 @@ function Camera() {
 
 	this.uniform = function (program) {
 		program.uniform2f('camera.position', position.x, position.z);
-		program.uniform1f('camera.angle', angle);
+		program.uniform2f('camera.angle', angle.x, angle.y);
 	};
 }

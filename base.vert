@@ -4,7 +4,7 @@ uniform float screenRatio;
 
 uniform struct {
 	vec2 position;
-	float angle;
+	vec2 angle;
 } camera;
 
 uniform vec2 position;
@@ -24,9 +24,9 @@ void main() {
 		0, 0, 0, 1,
 		0, 0, 1, 1
 	) * mat4(
-		cos(camera.angle), 0, -sin(camera.angle), 0,
+		cos(camera.angle.y), 0, -sin(camera.angle.y), 0,
 		0, 1, 0, 0,
-		sin(camera.angle), 0, cos(camera.angle), 0,
+		sin(camera.angle.y), 0, cos(camera.angle.y), 0,
 		0, 0, 0, 1
 	) * mat4(
 		1, 0, 0, 0,

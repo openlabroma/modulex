@@ -15,6 +15,7 @@ html,body {
 canvas#canvas {
 	width: 100%;
 	height: 100%;
+	cursor: none;
 }
 	</style>
 </head>
@@ -25,7 +26,6 @@ var oogl, width, height;
 
 function startGame(assets) {
 	oogl.clearColor(0, 0, 0, 1);
-	//oogl.enable(oogl.CULL_FACE);
 	oogl.enable(oogl.DEPTH_TEST);
 	oogl.depthFunc(oogl.GREATER);
 	oogl.clearDepth(0);
@@ -35,7 +35,7 @@ function startGame(assets) {
 
 	var timestamp = Date.now();
 	var loop = new OOGL.RenderLoop(function () {
-		oogl.clear(oogl.DEPTH_BUFFER_BIT);
+		oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
 		var lastTimestamp = timestamp;
 		timestamp = Date.now();
 		camera.tick(timestamp - lastTimestamp);
@@ -121,6 +121,9 @@ OOGL(function () {
 	new oogl.Loader()
 		.queueJSON('level.json')
 		.queueJSON('modules/test.json')
+		.queueJSON('modules/1.json')
+		.queueJSON('modules/2.json')
+		.queueJSON('modules/3.json')
 		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
 		.loadAssets(function (assets)
 	{
