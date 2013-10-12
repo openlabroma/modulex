@@ -10,7 +10,9 @@ function Camera() {
 		left: false,
 		right: false,
 		up: false,
-		down: false
+		down: false,
+		leftStrafe: false,
+		rightStrafe: false
 	};
 
 	this.startLeft = function () {
@@ -37,9 +39,21 @@ function Camera() {
 	this.stopDown = function () {
 		keys.down = false;
 	};
+	this.startStrafeLeft = function () {
+		keys.leftStrafe = true;
+	};
+	this.stopStrafeLeft = function () {
+		keys.leftStrafe = false;
+	};
+	this.startStrafeRight = function () {
+		keys.rightStrafe = true;
+	};
+	this.stopStrafeRight = function () {
+		keys.rightStrafe = false;
+	};
 
-	var walkVelocity = 0.5;
-	var turnVelocity = Math.PI / 2;
+	var walkVelocity = 75;
+	var turnVelocity = Math.PI;
 
 	this.tick = function (dt) {
 		dt /= 1000;
@@ -63,6 +77,17 @@ function Camera() {
 		if (keys.right) {
 			angle -= da;
 		}
+		if (keys.leftStrafe) {
+			dx += ds * -Math.sin(angle + Math.PI / 2);
+			dz += ds * Math.cos(angle + Math.PI / 2);
+		}
+		if (keys.rightStrafe) {
+			dx += ds * -Math.sin(angle - Math.PI / 2);
+			dz += ds * Math.cos(angle - Math.PI / 2);
+		}
+
+		position.x += dx;
+		position.z += dz;
 	};
 
 	this.uniform = function (program) {

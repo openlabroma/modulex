@@ -32,7 +32,7 @@ void main() {
 		1, 0, 0, 0,
 		0, 1, 0, 0,
 		0, 0, 1, 0,
-		camera.position.x, 0, camera.position.y, 1
+		-camera.position.x, -15.5, -camera.position.y, 1
 	) * mat4(
 		1, 0, 0, 0,
 		0, 1, 0, 0,

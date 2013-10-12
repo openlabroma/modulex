@@ -25,8 +25,10 @@ var oogl, width, height;
 
 function startGame(assets) {
 	oogl.clearColor(0, 0, 0, 1);
-	oogl.enable(oogl.CULL_FACE);
+	//oogl.enable(oogl.CULL_FACE);
 	oogl.enable(oogl.DEPTH_TEST);
+	oogl.depthFunc(oogl.GREATER);
+	oogl.clearDepth(0);
 
 	var camera = new Camera();
 	var modules = new Modules(assets);
@@ -55,6 +57,12 @@ function startGame(assets) {
 		case 40: // down
 			camera.startDown();
 			break;
+		case 65:
+			camera.startStrafeLeft();
+			break;
+		case 68:
+			camera.startStrafeRight();
+			break;
 		default:
 			return;
 		}
@@ -74,6 +82,12 @@ function startGame(assets) {
 			break;
 		case 40: // down
 			camera.stopDown();
+			break;
+		case 65:
+			camera.stopStrafeLeft();
+			break;
+		case 68:
+			camera.stopStrafeRight();
 			break;
 		default:
 			return;
