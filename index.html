@@ -5,6 +5,7 @@
 	<script src="jquery-2.0.3.min.js"></script>
 	<script src="oogl-1.0.0.js"></script>
 	<script src="Camera.js"></script>
+	<script src="Modules.js"></script>
 	<style>
 html,body {
 	margin: 0px;
@@ -40,12 +41,16 @@ function startGame(assets) {
 	$(window).keydown(function (event) {
 		switch (event.which) {
 		case 37: // left
+			camera.startLeft();
 			break;
 		case 38: // up
+			camera.startUp();
 			break;
 		case 39: // right
+			camera.startRight();
 			break;
 		case 40: // down
+			camera.startDown();
 			break;
 		default:
 			return;
@@ -54,12 +59,16 @@ function startGame(assets) {
 	}).keyup(function (event) {
 		switch (event.which) {
 		case 37: // left
+			camera.stopLeft();
 			break;
 		case 38: // up
+			camera.stopUp();
 			break;
 		case 39: // right
+			camera.stopRight();
 			break;
 		case 40: // down
+			camera.stopDown();
 			break;
 		default:
 			return;

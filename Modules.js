@@ -2,9 +2,9 @@ function Modules(assets) {
 	var program = assets.getProgram('base');
 	var modules = assets.getData('level.json').modules;
 
-	var arrays = {};
+	var arrayMap = {};
 	modules.forEach(function (module) {
-		if (!arrays[module.path]) {
+		if (!arrayMap[module.path]) {
 			var mesh = assets.getData(module.path);
 			// TODO
 		}
@@ -18,7 +18,7 @@ function Modules(assets) {
 			var module = modules[i];
 			program.uniform2f('position', module.position.x, module.position.z);
 			program.uniform1f('angle', module.angle);
-			var arrays = arrays[module.path];
+			var arrays = arrayMap[module.path];
 			arrays.enable();
 			arrays.bindAndPointer();
 			arrays.drawTriangles();
