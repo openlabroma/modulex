@@ -31,8 +31,12 @@ function startGame(assets) {
 	var camera = new Camera();
 	var modules = new Modules(assets);
 
+	var timestamp = Date.now();
 	var loop = new OOGL.RenderLoop(function () {
 		oogl.clear(oogl.DEPTH_BUFFER_BIT);
+		var lastTimestamp = timestamp;
+		timestamp = Date.now();
+		camera.tick(timestamp - lastTimestamp);
 		modules.draw(camera);
 		oogl.flush();
 	}).start();
