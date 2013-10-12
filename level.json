@@ -1,13 +1,6 @@
 {
 	"modules": [{
-		"path": "",
-		"position": {
-			"x": 0,
-			"z": 0
-		},
-		"angle": 0
-	}, {
-		"path": "",
+		"path": "test.json",
 		"position": {
 			"x": 0,
 			"z": 0

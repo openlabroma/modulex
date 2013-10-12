@@ -94,7 +94,8 @@ OOGL(function () {
 
 	new oogl.Loader()
 		.queueJSON('level.json')
-		.queueProgram('base', ['vertex', 'texCoord'])
+		.queueJSON('modules/test.json')
+		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
 		.loadAssets(function (assets)
 	{
 		document.title = 'Module-X';

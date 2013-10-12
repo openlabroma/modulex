@@ -11,8 +11,10 @@ uniform vec2 position;
 uniform float angle;
 
 attribute vec4 vertex;
+attribute vec3 normal;
 attribute vec2 texCoord;
 
+varying vec3 vertNormal;
 varying vec2 vertTexCoord;
 
 void main() {
@@ -42,5 +44,6 @@ void main() {
 		-sin(angle), 0, cos(angle), 0,
 		0, 0, 0, 1
 	) * vertex;
+	vertNormal = normal;
 	vertTexCoord = texCoord;
 }

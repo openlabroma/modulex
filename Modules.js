@@ -5,6 +5,7 @@ function Modules(assets) {
 	function readArrays(mesh) {
 		var count = 0;
 		var vertices = [];
+		var normals = [];
 		var uvs = [];
 
 		function pushVertex(index) {
@@ -16,6 +17,14 @@ function Modules(assets) {
 				);
 		}
 
+		function pushNormal(index) {
+			normals.push(
+				mesh.normals[index * 3],
+				mesh.normals[index * 3 + 1],
+				mesh.normals[index * 3 + 2]
+				);
+		}
+
 		function pushUV(index) {
 			uvs.push(
 				mesh.uvs[index * 2],
@@ -23,8 +32,7 @@ function Modules(assets) {
 				);
 		}
 
-		var i = 0;
-		while (i < mesh.faces.length) {
+		for (var i = 0; i < mesh.faces.length; i++) {
 			var type = mesh.faces[i];
 			if (type & 1) {
 				pushVertex(mesh.faces[i + 1]);
@@ -65,9 +73,9 @@ function Modules(assets) {
 				}
 			} else {
 				if (type & 1) {
-					uvs.push(0, 0, 0, 0, 0, 0);
+					uvs.push(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 				} else {
-					uvs.push(0, 0, 0);
+					uvs.push(0, 0, 0, 0, 0, 0);
 				}
 			}
 			if (type & 16) {
@@ -75,8 +83,17 @@ function Modules(assets) {
 			}
 			if (type & 32) {
 				if (type & 1) {
+					pushNormal(mesh.faces[i + 1]);
+					pushNormal(mesh.faces[i + 2]);
+					pushNormal(mesh.faces[i + 3]);
+					pushNormal(mesh.faces[i + 3]);
+					pushNormal(mesh.faces[i + 4]);
+					pushNormal(mesh.faces[i + 1]);
 					i += 4;
 				} else {
+					pushNormal(mesh.faces[i + 1]);
+					pushNormal(mesh.faces[i + 2]);
+					pushNormal(mesh.faces[i + 3]);
 					i += 3;
 				}
 			}
@@ -94,6 +111,7 @@ function Modules(assets) {
 
 		var arrays = new oogl.AttributeArrays(count);
 		arrays.add4f(vertices);
+		arrays.add3f(normals);
 		arrays.add2f(uvs);
 		return arrays;
 	}
