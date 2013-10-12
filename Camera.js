@@ -61,6 +61,9 @@ function Camera() {
 		angle.x += dx * turnVelocity;
 		angle.y += dy * turnVelocity;
 	};
+	this.resetAngle = function () {
+		angle.x = 0;
+	};
 
 	this.tick = function (dt) {
 		dt /= 1000;
