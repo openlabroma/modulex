@@ -15,8 +15,8 @@ function Marker(assets) {
 		program.use();
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
-		program.uniform2f('position', 0, 0);
-		program.uniform1f('angle', 0);
+		program.uniform2f('position', -143, 60);
+		program.uniform1f('angle', Math.PI / 2);
 		arrays.enable();
 		arrays.bindAndPointer();
 		arrays.drawTriangles();
