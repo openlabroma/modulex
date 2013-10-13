@@ -45,7 +45,7 @@ function startGame(assets) {
 		timestamp = Date.now();
 		camera.tick(timestamp - lastTimestamp);
 		level.draw(camera);
-		marker.draw(camera);
+		//marker.draw(camera);
 		oogl.flush();
 	}).start();
 
@@ -159,6 +159,8 @@ OOGL(function () {
 		.queueJSON('modules/short.json')
 		.queueJSON('modules/tee1.json')
 		.queueJSON('modules/tee2.json')
+		.queueJSON('modules/tee3.json')
+		.queueJSON('modules/tee4.json')
 		.queueTexture('texture.png')
 		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
 		.queueProgram('marker', ['vertex'])
