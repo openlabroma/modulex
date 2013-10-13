@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Module-X</title>
+	<title>Module-63</title>
 	<script src="oogl-1.0.0.js"></script>
 	<script src="Camera.js"></script>
 	<script src="Modules.js"></script>
+	<script src="Level.js"></script>
 	<style>
 html,body {
 	margin: 0px;
@@ -32,6 +33,7 @@ function startGame(assets) {
 
 	var camera = new Camera();
 	var modules = new Modules(assets);
+	var level = new Level(assets, modules);
 
 	var timestamp = Date.now();
 	var loop = new OOGL.RenderLoop(function () {
@@ -39,7 +41,7 @@ function startGame(assets) {
 		var lastTimestamp = timestamp;
 		timestamp = Date.now();
 		camera.tick(timestamp - lastTimestamp);
-		modules.draw(camera);
+		level.draw(camera);
 		oogl.flush();
 	}).start();
 
@@ -140,16 +142,24 @@ OOGL(function () {
 
 	new oogl.Loader()
 		.queueJSON('level.json')
+		.queueJSON('descriptors/left.json')
+		.queueJSON('descriptors/right.json')
+		.queueJSON('descriptors/long.json')
+		.queueJSON('descriptors/short.json')
+		.queueJSON('descriptors/tee1.json')
+		.queueJSON('descriptors/tee2.json')
 		.queueJSON('modules/door.json')
 		.queueJSON('modules/left.json')
 		.queueJSON('modules/right.json')
 		.queueJSON('modules/long.json')
 		.queueJSON('modules/short.json')
-		.queueJSON('modules/tee.json')
+		.queueJSON('modules/tee1.json')
+		.queueJSON('modules/tee2.json')
+		.queueTexture('texture.png')
 		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
 		.loadAssets(function (assets)
 	{
-		document.title = 'Module-X';
+		document.title = 'Module-63';
 		startGame(assets);
 	}, function (progress) {
 		document.title = Math.round(progress) + '%';

@@ -1,0 +1,47 @@
+{
+	"1": {
+		"path": "right.json",
+		"position": {
+			"x": -585,
+			"z": 70
+		},
+		"angle": 0,
+		"mates": []
+	},
+	"2": {
+		"path": "tee.json",
+		"position": {
+			"x": 0,
+			"z": 0
+		},
+		"angle": 1.57,
+		"mates": []
+	},
+	"3": {
+		"path": "right.json",
+		"position": {
+			"x": 515,
+			"z": 0
+		},
+		"angle": 1.57,
+		"mates": []
+	},
+	"4": {
+		"path": "short.json",
+		"position": {
+			"x": 25,
+			"z": -230
+		},
+		"angle": 3.14,
+		"mates": []
+	},
+	"5": {
+		"path": "right.json",
+		"position": {
+			"x": -45,
+			"z": -640
+		},
+		"angle": 1.57,
+		"mates": []
+	}
+}

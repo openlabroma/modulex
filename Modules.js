@@ -1,6 +1,6 @@
 function Modules(assets) {
 	var program = assets.getProgram('base');
-	var modules = assets.getData('level.json').modules;
+	var level = assets.getData('level.json');
 
 	function readArrays(mesh) {
 		var count = 0;
@@ -117,25 +117,18 @@ function Modules(assets) {
 	}
 
 	var arrayMap = {};
-	modules.forEach(function (module) {
-		if (!arrayMap[module.path]) {
-			arrayMap[module.path] = readArrays(assets.getData('modules/' + module.path));
+	for (var id in level.modules) {
+		var module = level.modules[id];
+		if (!arrayMap[module.type]) {
+			arrayMap[module.type] = readArrays(assets.getData('modules/' + module.type + '.json'));
 		}
-	});
+	}
 
-	this.draw = function (camera) {
-		program.use();
-		program.uniform1f('screenRatio', width / height);
-		camera.uniform(program);
-		for (var i = 0; i < modules.length; i++) {
-			var module = modules[i];
-			program.uniform2f('position', module.position.x, module.position.z);
-			program.uniform1f('angle', module.angle);
-			var arrays = arrayMap[module.path];
-			arrays.enable();
-			arrays.bindAndPointer();
-			arrays.drawTriangles();
-			arrays.disable();
-		}
+	this.draw = function (id) {
+		var arrays = arrayMap[level.modules[id].type];
+		arrays.enable();
+		arrays.bindAndPointer();
+		arrays.drawTriangles();
+		arrays.disable();
 	};
 }

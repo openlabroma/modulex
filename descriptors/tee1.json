@@ -1,0 +1,22 @@
+{
+	"area": [0, 0, 0, 0],
+	"sockets": [{
+		"position": {
+			"x": 0,
+			"z": 0
+		},
+		"angle": 0
+	}, {
+		"position": {
+			"x": 0,
+			"z": 0
+		},
+		"angle": 0
+	}, {
+		"position": {
+			"x": 0,
+			"z": 0
+		},
+		"angle": 0
+	}]
+}
