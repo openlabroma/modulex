@@ -2,16 +2,16 @@
 	"area": [0, 0, 0, 0],
 	"sockets": [{
 		"position": {
-			"x": 0,
-			"z": 0
+			"x": 91,
+			"z": -155
 		},
-		"angle": 0
+		"angle": -1.571
 	}, {
 		"position": {
-			"x": 0,
-			"z": 0
+			"x": -9,
+			"z": 355
 		},
-		"angle": 0
+		"angle": 1.571
 	}, {
 		"position": {
 			"x": 0,

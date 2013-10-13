@@ -6,6 +6,7 @@
 	<script src="Camera.js"></script>
 	<script src="Modules.js"></script>
 	<script src="Level.js"></script>
+	<script src="Marker.js"></script>
 	<style>
 html,body {
 	margin: 0px;
@@ -35,6 +36,8 @@ function startGame(assets) {
 	var modules = new Modules(assets);
 	var level = new Level(assets, modules);
 
+	var marker = new Marker(assets);
+
 	var timestamp = Date.now();
 	var loop = new OOGL.RenderLoop(function () {
 		oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
@@ -42,6 +45,7 @@ function startGame(assets) {
 		timestamp = Date.now();
 		camera.tick(timestamp - lastTimestamp);
 		level.draw(camera);
+		marker.draw(camera);
 		oogl.flush();
 	}).start();
 
@@ -157,6 +161,7 @@ OOGL(function () {
 		.queueJSON('modules/tee2.json')
 		.queueTexture('texture.png')
 		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
+		.queueProgram('marker', ['vertex'])
 		.loadAssets(function (assets)
 	{
 		document.title = 'Module-63';

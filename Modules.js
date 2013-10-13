@@ -1,5 +1,4 @@
 function Modules(assets) {
-	var program = assets.getProgram('base');
 	var level = assets.getData('level.json');
 
 	function readArrays(mesh) {

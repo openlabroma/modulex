@@ -3,12 +3,12 @@
 		"id": 1,
 		"position": {
 			"x": 0,
-			"z": 512
+			"z": 100
 		}
 	},
 	"modules": {
 		"1": {
-			"type": "long",
+			"type": "tee1",
 			"children": [{
 				"id": 2,
 				"plug": 0
