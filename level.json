@@ -8,12 +8,29 @@
 	},
 	"modules": {
 		"1": {
-			"type": "short",
-			"children": [{
-				"id": 2,
-				"plug": 0
-			}],
-			"mates": [2, 3]
+			"type": "left",
+			"children": {
+				"1": {
+					"id": 2,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"2": {
+			"type": "long",
+			"children": {
+				"1": {
+					"id": 3,
+					"plug": 2
+				}
+			},
+			"mates": []
+		},
+		"3": {
+			"type": "tee3",
+			"children": {},
+			"mates": []
 		}
 	}
 }
