@@ -8,6 +8,7 @@ uniform struct {
 } camera;
 
 uniform mat4 transform;
+uniform float angle;
 
 attribute vec4 vertex;
 attribute vec3 normal;
@@ -39,14 +40,12 @@ void main() {
 		-camera.position.x, -90, -camera.position.y, 1
 	) * transform * vertex;
 
-/*
 	vertNormal = mat4(
 		cos(angle), 0, sin(angle), 0,
 		0, 1, 0, 0,
 		-sin(angle), 0, cos(angle), 0,
 		0, 0, 0, 1
 	) * vec4(normal, 1);
-*/
-	vertNormal = vec4(normal, 1);
+
 	vertTexCoord = texCoord;
 }

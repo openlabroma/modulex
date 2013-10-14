@@ -13,26 +13,31 @@ function Level(assets, modules) {
 
 	var transforms = {};
 
-	(function visit(id, transform, plugIndex) {
+	(function visit(id, transform, angle, plugIndex) {
 		var module = level.modules[id];
 		var descriptor = descriptors[module.type];
 		var plug = descriptor.sockets[plugIndex];
 		transform.multiply(new OOGL.RotationMatrix4(0, 1, 0, plug.angle));
 		transform.multiply(new OOGL.TranslationMatrix4(-plug.position.x, 0, -plug.position.z));
-		transforms[id] = transform;
+		angle -= plug.angle;
+		transforms[id] = {
+			transform: transform,
+			angle: angle
+		};
 		for (var socketIndex in module.children) {
 			var child = module.children[socketIndex];
 			var socket = descriptor.sockets[socketIndex];
 			visit(child.id,	transform
 				.by(new OOGL.RotationMatrix4(0, 1, 0, -socket.angle))
-				.by(new OOGL.TranslationMatrix4(socket.position.x, 0, socket.position.z)), child.plug);
+				.by(new OOGL.TranslationMatrix4(socket.position.x, 0, socket.position.z)), angle + socket.angle, child.plug);
 		}
-	})(level.root.id, OOGL.Matrix4.IDENTITY.clone(), 0);
+	})(level.root.id, OOGL.Matrix4.IDENTITY.clone(), 0, 0);
 
 	var program = assets.getProgram('base');
 
 	function drawModule(id) {
-		program.uniformMat4('transform', transforms[id]);
+		program.uniformMat4('transform', transforms[id].transform);
+		program.uniform1f('angle', transforms[id].angle);
 		modules.draw(id);
 	}
 
@@ -43,5 +48,6 @@ function Level(assets, modules) {
 		drawModule(1);
 		drawModule(2);
 		drawModule(3);
+		drawModule(4);
 	};
 }

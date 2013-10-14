@@ -28,6 +28,16 @@
 			"mates": []
 		},
 		"3": {
+			"type": "tee4",
+			"children": {
+				"0": {
+					"id": 4,
+					"plug": 2
+				}
+			},
+			"mates": []
+		},
+		"4": {
 			"type": "tee3",
 			"children": {},
 			"mates": []
