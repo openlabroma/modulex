@@ -8,5 +8,5 @@ varying vec2 vertTexCoord;
 void main() {
 	vec3 normal = vec3(vertNormal) / vertNormal.w;
 	float brightness = acos(dot(normal, normalize(vec3(1, -1, 1)))) / acos(-1.0);
-	gl_FragColor = vec4(vec3(1) * brightness, 1);
+	gl_FragColor = vec4(vec3(texture2D(texture, vertTexCoord)) * brightness, 1);
 }

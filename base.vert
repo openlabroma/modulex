@@ -47,5 +47,5 @@ void main() {
 		0, 0, 0, 1
 	) * vec4(normal, 1);
 
-	vertTexCoord = texCoord;
+	vertTexCoord = vec2(texCoord.x, 1.0 - texCoord.y);
 }

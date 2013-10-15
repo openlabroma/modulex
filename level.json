@@ -1,36 +1,26 @@
 {
 	"root": {
-		"id": 1,
+		"id": 2,
 		"position": {
 			"x": 0,
 			"z": 0
 		}
 	},
 	"modules": {
-		"1": {
-			"type": "left",
-			"children": {
-				"1": {
-					"id": 2,
-					"plug": 0
-				}
-			},
-			"mates": []
-		},
 		"2": {
 			"type": "long",
 			"children": {
 				"1": {
 					"id": 3,
-					"plug": 2
+					"plug": 0
 				}
 			},
 			"mates": []
 		},
 		"3": {
-			"type": "tee4",
+			"type": "right",
 			"children": {
-				"0": {
+				"1": {
 					"id": 4,
 					"plug": 2
 				}
@@ -38,7 +28,66 @@
 			"mates": []
 		},
 		"4": {
-			"type": "tee3",
+			"type": "tee1",
+			"children": {
+				"1": {
+					"id": 5,
+					"plug": 0
+				},
+				"0": {
+					"id": 8,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"5": {
+			"type": "short",
+			"children": {
+				"1": {
+					"id": 6,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"6": {
+			"type": "left",
+			"children": {
+				"1": {
+					"id": 7,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"7": {
+			"type": "long",
+			"children": {},
+			"mates": []
+		},
+		"8": {
+			"type": "right",
+			"children": {
+				"0": {
+					"id": 9,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"9": {
+			"type": "long",
+			"children": {
+				"0": {
+					"id": 10,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"10": {
+			"type": "long",
 			"children": {},
 			"mates": []
 		}

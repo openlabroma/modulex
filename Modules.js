@@ -26,8 +26,8 @@ function Modules(assets) {
 
 		function pushUV(index) {
 			uvs.push(
-				mesh.uvs[index * 2],
-				mesh.uvs[index * 2 + 1]
+				mesh.uvs[0][index * 2],
+				mesh.uvs[0][index * 2 + 1]
 				);
 		}
 
@@ -40,14 +40,14 @@ function Modules(assets) {
 				pushVertex(mesh.faces[i + 3]);
 				pushVertex(mesh.faces[i + 4]);
 				pushVertex(mesh.faces[i + 1]);
-				i += 4;
 				count += 6;
+				i += 4;
 			} else {
 				pushVertex(mesh.faces[i + 1]);
 				pushVertex(mesh.faces[i + 2]);
 				pushVertex(mesh.faces[i + 3]);
-				i += 3;
 				count += 3;
+				i += 3;
 			}
 			if (type & 2) {
 				i++;
