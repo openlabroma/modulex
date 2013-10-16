@@ -52,8 +52,10 @@ function Level(assets, modules) {
 		drawModule(5);
 		drawModule(6);
 		drawModule(7);
-		drawModule(8);
 		drawModule(9);
 		drawModule(10);
+		drawModule(11);
+		drawModule(12);
+		drawModule(13);
 	};
 }
