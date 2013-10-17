@@ -7,8 +7,8 @@ uniform struct {
 	vec2 angle;
 } camera;
 
-uniform vec2 position;
-uniform float angle;
+uniform vec2 v1;
+uniform vec2 v2;
 
 attribute vec4 vertex;
 
@@ -33,15 +33,10 @@ void main() {
 		0, 1, 0, 0,
 		0, 0, 1, 0,
 		-camera.position.x, -90, -camera.position.y, 1
-	) * mat4(
-		1, 0, 0, 0,
-		0, 1, 0, 0,
-		0, 0, 1, 0,
-		position.x, 0, position.y, 1
-	) * mat4(
-		cos(angle), 0, sin(angle), 0,
-		0, 1, 0, 0,
-		-sin(angle), 0, cos(angle), 0,
-		0, 0, 0, 1
-	) * vertex;
+	) * vec4(
+		v1.x * vertex.x + v2.x * vertex.z,
+		50,
+		v1.y * vertex.y + v2.y * vertex.w,
+		1
+		);
 }
