@@ -167,8 +167,11 @@ OOGL(function () {
 		.queueJSON('modules/tee2.json')
 		.queueJSON('modules/tee3.json')
 		.queueJSON('modules/tee4.json')
-		.queueTexture('texture.png')
+		.queueTexture('walls.png')
+		.queueTexture('frame.png')
+		.queueTexture('door.png')
 		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
+		.queueProgram('glass', ['vertex', 'normal', 'texCoord'])
 		.queueProgram('marker', ['vertex'])
 		.loadAssets(function (assets)
 	{
