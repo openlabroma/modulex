@@ -47,13 +47,11 @@ function Modules(assets) {
 				pushVertex(currentVertices, mesh.faces[i + 3]);
 				pushVertex(currentVertices, mesh.faces[i + 4]);
 				pushVertex(currentVertices, mesh.faces[i + 1]);
-				count += 6;
 				i += 4;
 			} else {
 				pushVertex(currentVertices, mesh.faces[i + 1]);
 				pushVertex(currentVertices, mesh.faces[i + 2]);
 				pushVertex(currentVertices, mesh.faces[i + 3]);
-				count += 3;
 				i += 3;
 			}
 			if (type & 2) {
@@ -62,7 +60,12 @@ function Modules(assets) {
 				push = !materialIndex;
 			}
 			if (push) {
-				vertices.push.call(vertices, currentVertices);
+				vertices.push.apply(vertices, currentVertices);
+				if (type & 1) {
+					count += 6;
+				} else {
+					count += 3;
+				}
 			}
 			if (type & 4) {
 				i++;
