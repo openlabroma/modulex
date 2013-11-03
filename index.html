@@ -33,6 +33,8 @@ function startGame(assets) {
 	oogl.enable(oogl.DEPTH_TEST);
 	oogl.depthFunc(oogl.GREATER);
 	oogl.clearDepth(0);
+	oogl.enable(oogl.BLEND);
+	oogl.blendFunc(oogl.SRC_ALPHA, oogl.ONE_MINUS_SRC_ALPHA);
 
 	var camera = new Camera();
 	var modules = new Modules(assets);
@@ -144,7 +146,9 @@ OOGL(function () {
 	canvas.width = width;
 	canvas.height = height;
 
-	oogl = new OOGL.Context(canvas);
+	oogl = new OOGL.Context(canvas, {
+		alpha: false
+	});
 
 	new oogl.Loader()
 		.queueJSON('level.json')

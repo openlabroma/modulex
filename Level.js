@@ -33,46 +33,50 @@ function Level(assets, modules) {
 		}
 	})(level.root.id, OOGL.Matrix4.IDENTITY.clone(), 0, 0);
 
-	var program = assets.getProgram('base');
+	var baseProgram = assets.getProgram('base');
+	var glassProgram = assets.getProgram('glass');
 	var wallTexture = assets.getTexture('walls.png');
 	var frameTexture = assets.getTexture('frame.png');
 
-	function drawModule(id) {
+	function drawModule(program, id, component) {
 		program.uniformMat4('transform', transforms[id].transform);
 		program.uniform1f('angle', transforms[id].angle);
-		//program.uniformMat4('transform', OOGL.Matrix4.IDENTITY);
-		//program.uniform1f('angle', 0);
-		wallTexture.bind();
-		modules.drawWalls(id);
-		frameTexture.bind();
-		modules.drawFrames(id);
+		modules.draw(id, component);
 	}
 
-	this.draw = function (camera) {
+	function drawModules(camera, program, component) {
 		program.use();
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
-		drawModule(2);
-		drawModule(3);
-		drawModule(4);
-		drawModule(5);
-		drawModule(6);
-		drawModule(7);
-		drawModule(9);
-		drawModule(10);
-		drawModule(11);
-		drawModule(12);
-		drawModule(13);
-		drawModule(14);
-		drawModule(15);
-		drawModule(16);
-		drawModule(17);
-		drawModule(18);
-		drawModule(19);
-		drawModule(20);
-		drawModule(21);
-		drawModule(22);
-		drawModule(23);
-		drawModule(31);
+		drawModule(program, 2, component);
+		drawModule(program, 3, component);
+		drawModule(program, 4, component);
+		drawModule(program, 5, component);
+		drawModule(program, 6, component);
+		drawModule(program, 7, component);
+		drawModule(program, 9, component);
+		drawModule(program, 10, component);
+		drawModule(program, 11, component);
+		drawModule(program, 12, component);
+		drawModule(program, 13, component);
+		drawModule(program, 14, component);
+		drawModule(program, 15, component);
+		drawModule(program, 16, component);
+		drawModule(program, 17, component);
+		drawModule(program, 18, component);
+		drawModule(program, 19, component);
+		drawModule(program, 20, component);
+		drawModule(program, 21, component);
+		drawModule(program, 22, component);
+		drawModule(program, 23, component);
+		drawModule(program, 31, component);
+	}
+
+	this.draw = function (camera) {
+		frameTexture.bind();
+		drawModules(camera, baseProgram, 'frames');
+		wallTexture.bind();
+		drawModules(camera, baseProgram, 'walls');
+		drawModules(camera, glassProgram, 'glasses');
 	};
 }

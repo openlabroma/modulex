@@ -159,17 +159,11 @@ function Modules(assets) {
 		}
 	}
 
-	function bindDraw(arrayName) {
-		return function (id) {
-			var arrays = arrayMap[level.modules[id].type][arrayName];
-			arrays.enable();
-			arrays.bindAndPointer();
-			arrays.drawTriangles();
-			arrays.disable();
-		};
-	}
-
-	this.drawWalls = bindDraw('walls');
-	this.drawFrames = bindDraw('frames');
-	this.drawGlasses= bindDraw('glasses');
+	this.draw = function (id, component) {
+		var arrays = arrayMap[level.modules[id].type][component];
+		arrays.enable();
+		arrays.bindAndPointer();
+		arrays.drawTriangles();
+		arrays.disable();
+	};
 }
