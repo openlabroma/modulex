@@ -1,14 +1,14 @@
 function Modules(assets) {
 	var level = assets.getData('level.json');
 
-	function readArrays(mesh) {
+	function readArrays(mesh, materialIndex) {
 		var count = 0;
 		var vertices = [];
 		var normals = [];
 		var uvs = [];
 
-		function pushVertex(index) {
-			vertices.push(
+		function pushVertex(array, index) {
+			array.push(
 				mesh.vertices[index * 3],
 				mesh.vertices[index * 3 + 1],
 				mesh.vertices[index * 3 + 2],
@@ -16,41 +16,53 @@ function Modules(assets) {
 				);
 		}
 
+		var push = false;
+
 		function pushNormal(index) {
-			normals.push(
-				mesh.normals[index * 3],
-				mesh.normals[index * 3 + 1],
-				mesh.normals[index * 3 + 2]
-				);
+			if (push) {
+				normals.push(
+					mesh.normals[index * 3],
+					mesh.normals[index * 3 + 1],
+					mesh.normals[index * 3 + 2]
+					);
+			}
 		}
 
 		function pushUV(index) {
-			uvs.push(
-				mesh.uvs[0][index * 2],
-				mesh.uvs[0][index * 2 + 1]
-				);
+			if (push) {
+				uvs.push(
+					mesh.uvs[0][index * 2],
+					mesh.uvs[0][index * 2 + 1]
+					);
+			}
 		}
 
 		for (var i = 0; i < mesh.faces.length; i++) {
 			var type = mesh.faces[i];
+			var currentVertices = [];
 			if (type & 1) {
-				pushVertex(mesh.faces[i + 1]);
-				pushVertex(mesh.faces[i + 2]);
-				pushVertex(mesh.faces[i + 3]);
-				pushVertex(mesh.faces[i + 3]);
-				pushVertex(mesh.faces[i + 4]);
-				pushVertex(mesh.faces[i + 1]);
+				pushVertex(currentVertices, mesh.faces[i + 1]);
+				pushVertex(currentVertices, mesh.faces[i + 2]);
+				pushVertex(currentVertices, mesh.faces[i + 3]);
+				pushVertex(currentVertices, mesh.faces[i + 3]);
+				pushVertex(currentVertices, mesh.faces[i + 4]);
+				pushVertex(currentVertices, mesh.faces[i + 1]);
 				count += 6;
 				i += 4;
 			} else {
-				pushVertex(mesh.faces[i + 1]);
-				pushVertex(mesh.faces[i + 2]);
-				pushVertex(mesh.faces[i + 3]);
+				pushVertex(currentVertices, mesh.faces[i + 1]);
+				pushVertex(currentVertices, mesh.faces[i + 2]);
+				pushVertex(currentVertices, mesh.faces[i + 3]);
 				count += 3;
 				i += 3;
 			}
 			if (type & 2) {
-				i++;
+				push = (mesh.faces[++i] == materialIndex);
+			} else {
+				push = !materialIndex;
+			}
+			if (push) {
+				vertices.push.call(vertices, currentVertices);
 			}
 			if (type & 4) {
 				i++;
@@ -95,6 +107,23 @@ function Modules(assets) {
 					pushNormal(mesh.faces[i + 3]);
 					i += 3;
 				}
+			} else {
+				if (type & 1) {
+					normals.push(
+						0, 0, 0,
+						0, 0, 0,
+						0, 0, 0,
+						0, 0, 0,
+						0, 0, 0,
+						0, 0, 0
+						);
+				} else {
+					normals.push(
+						0, 0, 0,
+						0, 0, 0,
+						0, 0, 0
+						);
+				}
 			}
 			if (type & 64) {
 				i++;
@@ -119,15 +148,25 @@ function Modules(assets) {
 	for (var id in level.modules) {
 		var module = level.modules[id];
 		if (!arrayMap[module.type]) {
-			arrayMap[module.type] = readArrays(assets.getData('modules/' + module.type + '.json'));
+			arrayMap[module.type] = {
+				walls: readArrays(assets.getData('modules/' + module.type + '.json'), 0),
+				frames: readArrays(assets.getData('modules/' + module.type + '.json'), 2),
+				glasses: readArrays(assets.getData('modules/' + module.type + '.json'), 1),
+			};
 		}
 	}
 
-	this.draw = function (id) {
-		var arrays = arrayMap[level.modules[id].type];
-		arrays.enable();
-		arrays.bindAndPointer();
-		arrays.drawTriangles();
-		arrays.disable();
-	};
+	function bindDraw(arrayName) {
+		return function (id) {
+			var arrays = arrayMap[level.modules[id].type][arrayName];
+			arrays.enable();
+			arrays.bindAndPointer();
+			arrays.drawTriangles();
+			arrays.disable();
+		};
+	}
+
+	this.drawWalls = bindDraw('walls');
+	this.drawFrames = bindDraw('frames');
+	this.drawGlasses= bindDraw('glasses');
 }

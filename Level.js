@@ -34,14 +34,18 @@ function Level(assets, modules) {
 	})(level.root.id, OOGL.Matrix4.IDENTITY.clone(), 0, 0);
 
 	var program = assets.getProgram('base');
-	var texture = assets.getTexture('texture.png');
+	var wallTexture = assets.getTexture('walls.png');
+	var frameTexture = assets.getTexture('frame.png');
 
-	function drawModule(id, flat) {
+	function drawModule(id) {
 		program.uniformMat4('transform', transforms[id].transform);
 		program.uniform1f('angle', transforms[id].angle);
 		//program.uniformMat4('transform', OOGL.Matrix4.IDENTITY);
 		//program.uniform1f('angle', 0);
-		modules.draw(id, flat);
+		wallTexture.bind();
+		modules.drawWalls(id);
+		frameTexture.bind();
+		modules.drawFrames(id);
 	}
 
 	this.draw = function (camera) {
