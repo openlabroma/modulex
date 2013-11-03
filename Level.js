@@ -39,8 +39,10 @@ function Level(assets, modules) {
 	var frameTexture = assets.getTexture('frame.png');
 
 	function drawModule(program, id, component) {
-		program.uniformMat4('transform', transforms[id].transform);
-		program.uniform1f('angle', transforms[id].angle);
+		//program.uniformMat4('transform', transforms[id].transform);
+		//program.uniform1f('angle', transforms[id].angle);
+		program.uniformMat4('transform', OOGL.Matrix4.IDENTITY);
+		program.uniform1f('angle', 0);
 		modules.draw(id, component);
 	}
 
@@ -49,27 +51,27 @@ function Level(assets, modules) {
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
 		drawModule(program, 2, component);
-		drawModule(program, 3, component);
-		drawModule(program, 4, component);
-		drawModule(program, 5, component);
-		drawModule(program, 6, component);
-		drawModule(program, 7, component);
-		drawModule(program, 9, component);
-		drawModule(program, 10, component);
-		drawModule(program, 11, component);
-		drawModule(program, 12, component);
-		drawModule(program, 13, component);
-		drawModule(program, 14, component);
-		drawModule(program, 15, component);
-		drawModule(program, 16, component);
-		drawModule(program, 17, component);
-		drawModule(program, 18, component);
-		drawModule(program, 19, component);
-		drawModule(program, 20, component);
-		drawModule(program, 21, component);
-		drawModule(program, 22, component);
-		drawModule(program, 23, component);
-		drawModule(program, 31, component);
+		//drawModule(program, 3, component);
+		//drawModule(program, 4, component);
+		//drawModule(program, 5, component);
+		//drawModule(program, 6, component);
+		//drawModule(program, 7, component);
+		//drawModule(program, 9, component);
+		//drawModule(program, 10, component);
+		//drawModule(program, 11, component);
+		//drawModule(program, 12, component);
+		//drawModule(program, 13, component);
+		//drawModule(program, 14, component);
+		//drawModule(program, 15, component);
+		//drawModule(program, 16, component);
+		//drawModule(program, 17, component);
+		//drawModule(program, 18, component);
+		//drawModule(program, 19, component);
+		//drawModule(program, 20, component);
+		//drawModule(program, 21, component);
+		//drawModule(program, 22, component);
+		//drawModule(program, 23, component);
+		//drawModule(program, 31, component);
 	}
 
 	this.draw = function (camera) {
