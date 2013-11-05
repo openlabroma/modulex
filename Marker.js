@@ -15,8 +15,8 @@ function Marker(assets) {
 		program.use();
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
-		program.uniform2f('v1', -140, -260);
-		program.uniform2f('v2', 140, 260);
+		program.uniform2f('v1', -140, -210);
+		program.uniform2f('v2', 330, 260);
 		arrays.enable();
 		arrays.bindAndPointer();
 		arrays.drawTriangles();
