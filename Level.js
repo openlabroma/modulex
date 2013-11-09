@@ -41,8 +41,6 @@ function Level(assets, modules) {
 	function drawModule(program, id, component) {
 		program.uniformMat4('transform', transforms[id].transform);
 		program.uniform1f('angle', transforms[id].angle);
-		//program.uniformMat4('transform', OOGL.Matrix4.IDENTITY);
-		//program.uniform1f('angle', 0);
 		modules.draw(id, component);
 	}
 
