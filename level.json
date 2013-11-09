@@ -210,10 +210,357 @@
 		},
 		"23": {
 			"type": "left",
+			"children": {
+				"1": {
+					"id": 24,
+					"plug": 2
+				}
+			},
+			"mates": []
+		},
+		"24": {
+			"type": "tee4",
+			"children": {
+				"1": {
+					"id": 25,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"25": {
+			"type": "left",
+			"children": {
+				"1": {
+					"id": 26,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"26": {
+			"type": "tee1",
+			"children": {
+				"1": {
+					"id": 27,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"27": {
+			"type": "right",
+			"children": {
+				"1": {
+					"id": 28,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"28": {
+			"type": "long",
 			"children": {},
 			"mates": []
 		},
 		"31": {
+			"type": "right",
+			"children": {
+				"0": {
+					"id": 32,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"32": {
+			"type": "right",
+			"children": {
+				"0": {
+					"id": 33,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"33": {
+			"type": "long",
+			"children": {
+				"0": {
+					"id": 34,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"34": {
+			"type": "left",
+			"children": {
+				"0": {
+					"id": 35,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"35": {
+			"type": "left",
+			"children": {
+				"0": {
+					"id": 36,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"36": {
+			"type": "right",
+			"children": {
+				"0": {
+					"id": 37,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"37": {
+			"type": "tee3",
+			"children": {
+				"0": {
+					"id": 38,
+					"plug": 1
+				},
+				"2": {
+					"id": 40,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"38": {
+			"type": "right",
+			"children": {
+				"0": {
+					"id": 39,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"39": {
+			"type": "long",
+			"children": {},
+			"mates": []
+		},
+		"40": {
+			"type": "long",
+			"children": {
+				"1": {
+					"id": 41,
+					"plug": 2
+				}
+			},
+			"mates": []
+		},
+		"41": {
+			"type": "tee1",
+			"children": {
+				"0": {
+					"id": 43,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"43": {
+			"type": "right",
+			"children": {
+				"0": {
+					"id": 44,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"44": {
+			"type": "short",
+			"children": {
+				"0": {
+					"id": 45,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"45": {
+			"type": "short",
+			"children": {
+				"0": {
+					"id": 46,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"46": {
+			"type": "tee3",
+			"children": {
+				"0": {
+					"id": 47,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"47": {
+			"type": "left",
+			"children": {
+				"0": {
+					"id": 48,
+					"plug": 1
+				}
+			},
+			"mates": []
+		},
+		"48": {
+			"type": "tee3",
+			"children": {
+				"0": {
+					"id": 51,
+					"plug": 1
+				},
+				"2": {
+					"id": 49,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"49": {
+			"type": "long",
+			"children": {
+				"1": {
+					"id": 50,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"50": {
+			"type": "left",
+			"children": {},
+			"mates": []
+		},
+		"51": {
+			"type": "right",
+			"children": {
+				"0": {
+					"id": 52,
+					"plug": 2
+				}
+			},
+			"mates": []
+		},
+		"52": {
+			"type": "tee2",
+			"children": {
+				"0": {
+					"id": 53,
+					"plug": 1
+				},
+				"1": {
+					"id": 58,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"53": {
+			"type": "left",
+			"children": {
+				"0": {
+					"id": 54,
+					"plug": 2
+				}
+			},
+			"mates": []
+		},
+		"54": {
+			"type": "tee3",
+			"children": {
+				"1": {
+					"id": 55,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"55": {
+			"type": "long",
+			"children": {
+				"1": {
+					"id": 56,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"56": {
+			"type": "long",
+			"children": {
+				"1": {
+					"id": 57,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"57": {
+			"type": "left",
+			"children": {},
+			"mates": []
+		},
+		"58": {
+			"type": "left",
+			"children": {
+				"1": {
+					"id": 59,
+					"plug": 2
+				}
+			},
+			"mates": []
+		},
+		"59": {
+			"type": "tee4",
+			"children": {
+				"1": {
+					"id": 60,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"60": {
+			"type": "long",
+			"children": {
+				"1": {
+					"id": 61,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"61": {
+			"type": "long",
+			"children": {
+				"1": {
+					"id": 62,
+					"plug": 0
+				}
+			},
+			"mates": []
+		},
+		"62": {
 			"type": "right",
 			"children": {},
 			"mates": []

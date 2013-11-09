@@ -12,6 +12,16 @@ function Level(assets, modules) {
 	}
 
 	var transforms = {};
+	var area = [0, 0, 0, 0];
+
+	function updateArea(descriptor, transform) {
+		var v0 = transform.by(new OOGL.Vector4(descriptor.area.x0, 0, descriptor.area.z0, 1)).toStandard();
+		var v1 = transform.by(new OOGL.Vector4(descriptor.area.x1, 0, descriptor.area.z1, 1)).toStandard();
+		area[0] = Math.min(area[0], v0.x, v1.x);
+		area[1] = Math.min(area[1], v0.z, v1.z);
+		area[2] = Math.max(area[2], v0.x, v1.x);
+		area[3] = Math.max(area[3], v0.z, v1.z);
+	}
 
 	(function visit(id, transform, angle, plugIndex) {
 		var module = level.modules[id];
@@ -24,6 +34,7 @@ function Level(assets, modules) {
 			transform: transform,
 			angle: angle
 		};
+		updateArea(descriptor, transform);
 		for (var socketIndex in module.children) {
 			var child = module.children[socketIndex];
 			var socket = descriptor.sockets[socketIndex];
@@ -43,6 +54,24 @@ function Level(assets, modules) {
 		program.uniform1f('angle', transforms[id].angle);
 		modules.draw(id, component);
 	}
+
+	(function () {
+		var program = assets.getProgram('map');
+		program.use();
+		program.uniform4fv('area', area);
+		oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
+		function drawModules(component) {
+			for (var id in transforms) {
+				program.uniform1i('moduleId', parseInt(id, 10));
+				program.uniformMat4('transform', transforms[id].transform);
+				modules.draw(id, component);
+			}
+		}
+		drawModules('walls');
+		drawModules('frames');
+		drawModules('glasses');
+		oogl.flush();
+	})();
 
 	function drawModules(camera, program, component) {
 		program.use();
