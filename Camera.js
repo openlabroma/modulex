@@ -100,6 +100,14 @@ function Camera() {
 		position.z += dz;
 	};
 
+	this.getX = function () {
+		return position.x;
+	};
+
+	this.getZ = function () {
+		return position.z;
+	};
+
 	this.uniform = function (program) {
 		program.uniform2f('camera.position', position.x, position.z);
 		program.uniform2f('camera.angle', angle.x, angle.y);

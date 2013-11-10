@@ -42,16 +42,16 @@ function startGame(assets) {
 
 	var marker = new Marker(assets);
 
-	//var timestamp = Date.now();
-	//var loop = new OOGL.RenderLoop(function () {
-	//	oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
-	//	var lastTimestamp = timestamp;
-	//	timestamp = Date.now();
-	//	camera.tick(timestamp - lastTimestamp);
-	//	level.draw(camera);
+	var timestamp = Date.now();
+	var loop = new OOGL.RenderLoop(function () {
+		oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
+		var lastTimestamp = timestamp;
+		timestamp = Date.now();
+		camera.tick(timestamp - lastTimestamp);
+		level.draw(camera);
 		//marker.draw(camera);
-	//	oogl.flush();
-	//}).start();
+		oogl.flush();
+	}).start();
 
 	window.addEventListener('keydown', function (event) {
 		switch (event.keyCode) {

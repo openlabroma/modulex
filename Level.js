@@ -55,11 +55,22 @@ function Level(assets, modules) {
 		modules.draw(id, component);
 	}
 
-	(function () {
+	var map = new (function (width, height) {
 		var program = assets.getProgram('map');
 		program.use();
+		program.uniform1i('moduleCount', Object.keys(transforms).length);
 		program.uniform4fv('area', area);
+
+		var renderbuffer = new oogl.Renderbuffer();
+		renderbuffer.bind();
+		renderbuffer.storage(oogl.RGBA4, width, height);
+		var framebuffer = new oogl.Framebuffer();
+		framebuffer.bind();
+		framebuffer.renderbuffer(oogl.COLOR_ATTACHMENT0, renderbuffer);
+
+		oogl.disable(oogl.DEPTH_TEST);
 		oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
+
 		function drawModules(component) {
 			for (var id in transforms) {
 				program.uniform1i('moduleId', parseInt(id, 10));
@@ -67,38 +78,38 @@ function Level(assets, modules) {
 				modules.draw(id, component);
 			}
 		}
+
 		drawModules('walls');
 		drawModules('frames');
 		drawModules('glasses');
+
 		oogl.flush();
-	})();
+
+		var pixels = new Uint8Array(width * height * 4);
+		oogl.readPixels(0, 0, width - 1, height - 1, oogl.RGBA, oogl.UNSIGNED_BYTE, pixels);
+		framebuffer._delete();
+
+		oogl.enable(oogl.DEPTH_TEST);
+
+		this.getModuleId = function (x, z) {
+			x = (x - area[0]) * width / (area[2] - area[0]);
+			z = (z - area[1]) * height / (area[3] - area[1]);
+			var offset = (z * width + x) * 4;
+			var red = Math.round(pixels[offset] * 16 / 256);
+			var green = Math.round(pixels[offset + 1] * 16 / 256);
+			var blue = Math.round(pixels[offset + 2] * 16 / 256);
+			return red + (green << 4) + (blue << 8);
+		};
+	})(512, 512);
 
 	function drawModules(camera, program, component) {
 		program.use();
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
-		drawModule(program, 2, component);
-		drawModule(program, 3, component);
-		drawModule(program, 4, component);
-		drawModule(program, 5, component);
-		drawModule(program, 6, component);
-		drawModule(program, 7, component);
-		drawModule(program, 9, component);
-		drawModule(program, 10, component);
-		drawModule(program, 11, component);
-		drawModule(program, 12, component);
-		drawModule(program, 13, component);
-		drawModule(program, 14, component);
-		drawModule(program, 15, component);
-		drawModule(program, 16, component);
-		drawModule(program, 17, component);
-		drawModule(program, 18, component);
-		drawModule(program, 19, component);
-		drawModule(program, 20, component);
-		drawModule(program, 21, component);
-		drawModule(program, 22, component);
-		drawModule(program, 23, component);
-		drawModule(program, 31, component);
+		var id = map.getModuleId(camera.getX(), camera.getZ());
+		if (id in transforms) {
+			drawModule(program, id, component);
+		}
 	}
 
 	this.draw = function (camera) {
