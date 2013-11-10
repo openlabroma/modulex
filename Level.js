@@ -99,9 +99,9 @@ function Level(assets, modules) {
 			z = Math.floor((z - area[1]) * height / (area[3] - area[1]));
 			var offset = (z * width + x) * 4;
 			if ((offset >= 0) && (offset < width * height * 4)) {
-				var red = Math.round(pixels[offset] / 16);
-				var green = Math.round(pixels[offset + 1] / 16);
-				var blue = Math.round(pixels[offset + 2] / 16);
+				var red = Math.floor(pixels[offset] / 16);
+				var green = Math.floor(pixels[offset + 1] / 16);
+				var blue = Math.floor(pixels[offset + 2] / 16);
 				return red + (green << 4) + (blue << 8);
 			} else {
 				return -1;
