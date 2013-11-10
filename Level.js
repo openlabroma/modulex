@@ -86,19 +86,25 @@ function Level(assets, modules) {
 		oogl.flush();
 
 		var pixels = new Uint8Array(width * height * 4);
-		oogl.readPixels(0, 0, width - 1, height - 1, oogl.RGBA, oogl.UNSIGNED_BYTE, pixels);
+		oogl.readPixels(0, 0, width, height, oogl.RGBA, oogl.UNSIGNED_BYTE, pixels);
 		framebuffer._delete();
 
 		oogl.enable(oogl.DEPTH_TEST);
 
+		console.dir(pixels);
+
 		this.getModuleId = function (x, z) {
-			x = Math.round((x - area[0]) * width / (area[2] - area[0]));
-			z = Math.round((z - area[1]) * height / (area[3] - area[1]));
+			x = Math.round((x - area[0]) * (width - 1) / (area[2] - area[0]));
+			z = Math.round((z - area[1]) * (height - 1) / (area[3] - area[1]));
 			var offset = (z * width + x) * 4;
-			var red = Math.round(pixels[offset] * 16 / 256);
-			var green = Math.round(pixels[offset + 1] * 16 / 256);
-			var blue = Math.round(pixels[offset + 2] * 16 / 256);
-			return red + (green << 4) + (blue << 8);
+			if ((offset >= 0) && (offset < width * height * 4)) {
+				var red = Math.round(pixels[offset] / 16);
+				var green = Math.round(pixels[offset + 1] / 16);
+				var blue = Math.round(pixels[offset + 2] / 16);
+				return red + (green << 4) + (blue << 8);
+			} else {
+				return -1;
+			}
 		};
 	})(512, 512);
 
