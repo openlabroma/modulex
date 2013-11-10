@@ -69,6 +69,7 @@ function Level(assets, modules) {
 		framebuffer.renderbuffer(oogl.COLOR_ATTACHMENT0, renderbuffer);
 
 		oogl.disable(oogl.DEPTH_TEST);
+		oogl.viewport(0, 0, width, height);
 		oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
 
 		function drawModules(component) {
@@ -94,8 +95,8 @@ function Level(assets, modules) {
 		console.dir(pixels);
 
 		this.getModuleId = function (x, z) {
-			x = Math.round((x - area[0]) * (width - 1) / (area[2] - area[0]));
-			z = Math.round((z - area[1]) * (height - 1) / (area[3] - area[1]));
+			x = Math.floor((x - area[0]) * width / (area[2] - area[0]));
+			z = Math.floor((z - area[1]) * height / (area[3] - area[1]));
 			var offset = (z * width + x) * 4;
 			if ((offset >= 0) && (offset < width * height * 4)) {
 				var red = Math.round(pixels[offset] / 16);

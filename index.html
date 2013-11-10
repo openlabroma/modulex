@@ -40,6 +40,12 @@ function startGame(assets) {
 	var modules = new Modules(assets);
 	var level = new Level(assets, modules);
 
+	/**
+	 * XXX - the viewport must be restored because it is broken by the Level
+	 * constructor.
+	 */
+	oogl.viewport(0, 0, width, height);
+
 	var marker = new Marker(assets);
 
 	var timestamp = Date.now();
