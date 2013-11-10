@@ -116,6 +116,10 @@ function Level(assets, modules) {
 		var id = map.getModuleId(camera.getX(), camera.getZ());
 		if (id in transforms) {
 			drawModule(program, id, component);
+			var mates = level.modules[id].mates;
+			for (var i = 0; i < mates.length; i++) {
+				drawModule(program, mates[i], component);
+			}
 		}
 	}
 
