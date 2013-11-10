@@ -92,8 +92,8 @@ function Level(assets, modules) {
 		oogl.enable(oogl.DEPTH_TEST);
 
 		this.getModuleId = function (x, z) {
-			x = (x - area[0]) * width / (area[2] - area[0]);
-			z = (z - area[1]) * height / (area[3] - area[1]);
+			x = Math.round((x - area[0]) * width / (area[2] - area[0]));
+			z = Math.round((z - area[1]) * height / (area[3] - area[1]));
 			var offset = (z * width + x) * 4;
 			var red = Math.round(pixels[offset] * 16 / 256);
 			var green = Math.round(pixels[offset + 1] * 16 / 256);
