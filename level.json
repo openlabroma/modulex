@@ -1,12 +1,17 @@
 {
 	"root": {
-		"id": 2,
+		"id": 1,
 		"position": {
 			"x": 0,
 			"z": 0
 		}
 	},
 	"modules": {
+		"1": {
+			"type": "room",
+			"children": [],
+			"mates": []
+		},
 		"2": {
 			"type": "long",
 			"children": {

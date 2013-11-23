@@ -8,7 +8,8 @@ function Level(assets, modules) {
 		'tee3': assets.getData('descriptors/tee3.json'),
 		'tee4': assets.getData('descriptors/tee4.json'),
 		'left': assets.getData('descriptors/left.json'),
-		'right': assets.getData('descriptors/right.json')
+		'right': assets.getData('descriptors/right.json'),
+		'room': assets.getData('descriptors/room.json')
 	}
 
 	var transforms = {};
@@ -92,8 +93,6 @@ function Level(assets, modules) {
 
 		oogl.enable(oogl.DEPTH_TEST);
 
-		console.dir(pixels);
-
 		this.getModuleId = function (x, z) {
 			x = Math.floor((x - area[0]) * width / (area[2] - area[0]));
 			z = Math.floor((z - area[1]) * height / (area[3] - area[1]));
@@ -113,14 +112,17 @@ function Level(assets, modules) {
 		program.use();
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
-		var id = map.getModuleId(camera.getX(), camera.getZ());
-		if (id in transforms) {
-			drawModule(program, id, component);
-			var mates = level.modules[id].mates;
-			for (var i = 0; i < mates.length; i++) {
-				drawModule(program, mates[i], component);
-			}
-		}
+		drawModule(program, 1, 'walls');
+		drawModule(program, 1, 'frames');
+		drawModule(program, 1, 'glasses');
+		//var id = map.getModuleId(camera.getX(), camera.getZ());
+		//if (id in transforms) {
+		//	drawModule(program, id, component);
+		//	var mates = level.modules[id].mates;
+		//	for (var i = 0; i < mates.length; i++) {
+		//		drawModule(program, mates[i], component);
+		//	}
+		//}
 	}
 
 	this.draw = function (camera) {

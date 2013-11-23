@@ -15,15 +15,8 @@
 
 "materials": [
 {
-"DbgIndex" : 0,
-"DbgName"  : "14 - Default",
-"colorDiffuse"  : [0.5882, 0.5882, 0.5882],
-"colorAmbient"  : [0.5882, 0.5882, 0.5882],
-"colorSpecular"  : [0.9000, 0.9000, 0.9000],
-"transparency"  : 1.0,
-"specularCoef"  : 10.0,
-"mapDiffuse"    : "door_AO.tga",
-"vertexColors" : false
+"program": "base",
+"texture": "door.png"
 }
 
 ],

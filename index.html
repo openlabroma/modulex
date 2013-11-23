@@ -58,7 +58,7 @@ function startGame(assets) {
 		timestamp = Date.now();
 		camera.tick(timestamp - lastTimestamp);
 		level.draw(camera);
-		//marker.draw(camera);
+		marker.draw(camera);
 		oogl.flush();
 	}).start();
 
@@ -204,6 +204,9 @@ OOGL(function () {
 		.queueTexture('walls.png')
 		.queueTexture('frame.png')
 		.queueTexture('door.png')
+		.queueTexture('room1.png')
+		.queueTexture('room2.png')
+		.queueTexture('room3.png')
 		.queueProgram('map', ['vertex'])
 		.queueProgram('base', ['vertex', 'normal', 'texCoord'])
 		.queueProgram('glass', ['vertex', 'normal', 'texCoord'])

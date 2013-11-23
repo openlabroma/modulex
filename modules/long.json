@@ -15,38 +15,18 @@
 
 "materials": [
 {
-"DbgIndex" : 0,
-"DbgName"  : "13 - Default",
-"colorDiffuse"  : [0.0078, 0.8000, 1.0000],
-"colorAmbient"  : [0.0078, 0.8000, 1.0000],
-"colorSpecular"  : [0.9000, 0.9000, 0.9000],
-"transparency"  : 1.0,
-"specularCoef"  : 10.0,
-"mapDiffuse"    : "corridor_AO.tga",
-"vertexColors" : false
+"program": "base",
+"texture": "walls.png"
 },
 
 {
-"DbgIndex" : 1,
-"DbgName"  : "15 - Default",
-"colorDiffuse"  : [0.9922, 0.6118, 0.0118],
-"colorAmbient"  : [0.9922, 0.6118, 0.0118],
-"colorSpecular"  : [0.9000, 0.9000, 0.9000],
-"transparency"  : 1.0,
-"specularCoef"  : 10.0,
-"vertexColors" : false
+"program": "glass",
+"texture": "walls.png"
 },
 
 {
-"DbgIndex" : 2,
-"DbgName"  : "09 - Default",
-"colorDiffuse"  : [0.3529, 1.0000, 0.0000],
-"colorAmbient"  : [0.3529, 1.0000, 0.0000],
-"colorSpecular"  : [0.9000, 0.9000, 0.9000],
-"transparency"  : 1.0,
-"specularCoef"  : 10.0,
-"mapDiffuse"    : "door_frame_AO.tga",
-"vertexColors" : false
+"program": "base",
+"texture": "frame.png"
 }
 
 ],
