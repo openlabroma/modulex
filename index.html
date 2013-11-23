@@ -19,6 +19,9 @@ html,body {
 canvas#canvas {
 	width: 100%;
 	height: 100%;
+}
+
+no-cursor {
 	cursor: none;
 }
 	</style>
@@ -42,7 +45,7 @@ function startGame(assets) {
 
 	/**
 	 * XXX - the viewport must be restored because it is broken by the Level
-	 * constructor.
+	 * constructor when rendering the map.
 	 */
 	oogl.viewport(0, 0, width, height);
 
@@ -128,19 +131,40 @@ function startGame(assets) {
 
 	var canvas = document.querySelector('canvas#canvas');
 
-	var x = 0;
-	var y = 0;
+	var requestPointerLock =
+		canvas.requestPointerLock ||
+		canvas.webkitRequestPointerLock ||
+		canvas.mozRequestPointerLock;
 
-	canvas.addEventListener('mouseenter', function (event) {
-		x = event.clientX;
-		y = event.clientY;
-	}, false);
-
-	canvas.addEventListener('mousemove', function (event) {
-		camera.rotate((event.clientY - y) / dimension, (x - event.clientX) / dimension);
-		x = event.clientX;
-		y = event.clientY;
-	}, false);
+	if (requestPointerLock) {
+		requestPointerLock = requestPointerLock.bind(canvas);
+		canvas.addEventListener('click', requestPointerLock);
+		requestPointerLock();
+		canvas.addEventListener('mousemove', function (event) {
+			var movementX = event.movementX ||
+				event.webkitMovementX ||
+				event.mozMovementX ||
+				0;
+			var movementY = event.movementY ||
+				event.webkitMovementY ||
+				event.mozMovementY ||
+				0;
+			camera.rotate(movementY / dimension, -movementX / dimension);
+		}, false);
+	} else {
+		canvas.className = 'no-cursor';
+		var x = 0;
+		var y = 0;
+		canvas.addEventListener('mouseenter', function (event) {
+			x = event.clientX;
+			y = event.clientY;
+		}, false);
+		canvas.addEventListener('mousemove', function (event) {
+			camera.rotate((event.clientY - y) / dimension, (x - event.clientX) / dimension);
+			x = event.clientX;
+			y = event.clientY;
+		}, false);
+	}
 }
 
 OOGL(function () {
