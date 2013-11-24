@@ -45,16 +45,17 @@ function Level(assets, modules) {
 		}
 	})(level.root.id, OOGL.Matrix4.IDENTITY.clone(), 0, 0);
 
-	var baseProgram = assets.getProgram('base');
-	var glassProgram = assets.getProgram('glass');
-	var wallTexture = assets.getTexture('walls.png');
-	var frameTexture = assets.getTexture('frame.png');
-
-	function drawModule(program, id, component) {
-		program.uniformMat4('transform', transforms[id].transform);
-		program.uniform1f('angle', transforms[id].angle);
-		modules.draw(id, component);
-	}
+	var programs = {
+		base: assets.getProgram('base'),
+		glass: assets.getProgram('glass')
+	};
+	var textures = (function (names) {
+		var textures = {};
+		names.forEach(function (name) {
+			textures[name + '.png'] = assets.getTexture(name + '.png');
+		});
+		return textures;
+	})(['walls', 'frame', 'room1', 'room2', 'room3', 'door']);
 
 	var map = new (function (width, height) {
 		var program = assets.getProgram('map');
@@ -108,28 +109,39 @@ function Level(assets, modules) {
 		};
 	})(512, 512);
 
-	function drawModules(camera, program, component) {
+	function drawModule(program, moduleId, componentId) {
+		program.uniformMat4('transform', transforms[moduleId].transform);
+		program.uniform1f('angle', transforms[moduleId].angle);
+		modules.draw(moduleId, componentId);
+	}
+
+	function drawModules(camera, componentId, programName, textureName) {
+		textures[textureName].bind();
+		var program = programs[programName];
 		program.use();
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
-		drawModule(program, 1, 'walls');
-		drawModule(program, 1, 'frames');
-		drawModule(program, 1, 'glasses');
-		//var id = map.getModuleId(camera.getX(), camera.getZ());
-		//if (id in transforms) {
-		//	drawModule(program, id, component);
-		//	var mates = level.modules[id].mates;
+		drawModule(program, 1, componentId);
+		//var moduleId = map.getModuleId(camera.getX(), camera.getZ());
+		//if (moduleId in transforms) {
+		//	drawModule(program, moduleId, componentId);
+		//	var mates = level.modules[moduleId].mates;
 		//	for (var i = 0; i < mates.length; i++) {
-		//		drawModule(program, mates[i], component);
+		//		drawModule(program, mates[i], componentId);
 		//	}
 		//}
 	}
 
 	this.draw = function (camera) {
-		frameTexture.bind();
-		drawModules(camera, baseProgram, 'frames');
-		wallTexture.bind();
-		drawModules(camera, baseProgram, 'walls');
-		drawModules(camera, glassProgram, 'glasses');
+		modules.forEachComponent(function (componentId, programName, textureName) {
+			if (programName != 'glass') {
+				drawModules(camera, componentId, programName, textureName);
+			}
+		});
+		modules.forEachComponent(function (programName, textureName) {
+			if (programName == 'glass') {
+				drawModules(camera, componentId, programName, textureName);
+			}
+		});
 	};
 }

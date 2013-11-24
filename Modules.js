@@ -147,23 +147,48 @@ function Modules(assets) {
 		return arrays;
 	}
 
+	var components = [];
+
 	var arrayMap = {};
 	for (var id in level.modules) {
-		var module = level.modules[id];
-		if (!arrayMap[module.type]) {
-			arrayMap[module.type] = {
-				walls: readArrays(assets.getData('modules/' + module.type + '.json'), 0),
-				frames: readArrays(assets.getData('modules/' + module.type + '.json'), 2),
-				glasses: readArrays(assets.getData('modules/' + module.type + '.json'), 1),
-			};
+		var type = level.modules[id].type;
+		var module = assets.getData('modules/' + type + '.json');
+		if (!arrayMap[type]) {
+			var moduleComponents = {};
+			module.materials.forEach(function (material, index) {
+				moduleComponents[(function () {
+					for (var i = 0; i < components.length; i++) {
+						if ((components[i].program == material.program) &&
+							(components[i].texture == material.texture))
+						{
+							return i;
+						}
+					}
+					components.push({
+						program: material.program,
+						texture: material.texture
+					});
+					return components.length - 1;
+				})()] = readArrays(module, index);
+			});
+			arrayMap[type] = moduleComponents;
 		}
 	}
 
-	this.draw = function (id, component) {
-		var arrays = arrayMap[level.modules[id].type][component];
-		arrays.enable();
-		arrays.bindAndPointer();
-		arrays.drawTriangles();
-		arrays.disable();
+	this.forEachComponent = function (callback) {
+		for (var i = 0; i < components.length; i++) {
+			callback(i, components[i].program, components[i].texture);
+		}
+	};
+
+	this.draw = function (moduleId, componentId) {
+		var components = arrayMap[level.modules[moduleId].type];
+		if (componentId in components) {
+			var arrays = components[componentId];
+			arrays.enable();
+			arrays.bindAndPointer();
+			arrays.drawTriangles();
+			arrays.disable();
+		}
 	};
 }
