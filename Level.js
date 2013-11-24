@@ -138,7 +138,7 @@ function Level(assets, modules) {
 				drawModules(camera, componentId, programName, textureName);
 			}
 		});
-		modules.forEachComponent(function (programName, textureName) {
+		modules.forEachComponent(function (componentId, programName, textureName) {
 			if (programName == 'glass') {
 				drawModules(camera, componentId, programName, textureName);
 			}

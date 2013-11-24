@@ -8,9 +8,12 @@
 	},
 	"modules": {
 		"1": {
-			"type": "room",
-			"children": [],
-			"mates": []
+			"type": "long",
+			"children": [{
+				"id": 2,
+				"plug": 0
+			}],
+			"mates": [2, 3]
 		},
 		"2": {
 			"type": "long",
