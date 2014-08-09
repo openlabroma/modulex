@@ -1,6 +1,6 @@
 {
 	"root": {
-		"id": 1,
+		"id": 2,
 		"position": {
 			"x": 0,
 			"z": 0
@@ -8,11 +8,13 @@
 	},
 	"modules": {
 		"1": {
-			"type": "long",
-			"children": [{
-				"id": 2,
-				"plug": 0
-			}],
+			"type": "room",
+			"children": {
+				"0": {
+					"id": 2,
+					"plug": 0
+				}
+			},
 			"mates": [2, 3]
 		},
 		"2": {
@@ -71,8 +73,18 @@
 		},
 		"7": {
 			"type": "long",
-			"children": {},
+			"children": {
+				"1": {
+					"id": 8,
+					"plug": 0
+				}
+			},
 			"mates": [5, 6]
+		},
+		"8": {
+			"type": "room",
+			"children": {},
+			"mates": [7, 6]
 		},
 		"9": {
 			"type": "right",
@@ -120,7 +132,12 @@
 		},
 		"13": {
 			"type": "right",
-			"children": {},
+			"children": {
+				"1": {
+					"id": 30,
+					"plug": 0
+				}
+			},
 			"mates": [11, 12, 14]
 		},
 		"14": {
@@ -268,8 +285,23 @@
 		},
 		"28": {
 			"type": "long",
-			"children": {},
+			"children": {
+				"0": {
+					"id": 29,
+					"plug": 0
+				}
+			},
 			"mates": [26, 27]
+		},
+		"29": {
+			"type": "room",
+			"children": {},
+			"mates": []
+		},
+		"30": {
+			"type": "room",
+			"children": {},
+			"mates": []
 		},
 		"31": {
 			"type": "right",

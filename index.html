@@ -47,7 +47,7 @@ function startGame(assets) {
 	 * XXX - the viewport must be restored because it is broken by the Level
 	 * constructor when rendering the map.
 	 */
-	oogl.viewport(0, 0, width, height);
+	//oogl.viewport(0, 0, width, height);
 
 	var marker = new Marker(assets);
 
@@ -60,7 +60,7 @@ function startGame(assets) {
 		level.draw(camera);
 		marker.draw(camera);
 		oogl.flush();
-	}).start();
+	});
 
 	window.addEventListener('keydown', function (event) {
 		switch (event.keyCode) {

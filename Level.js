@@ -74,23 +74,19 @@ function Level(assets, modules) {
 		oogl.viewport(0, 0, width, height);
 		oogl.clear(oogl.COLOR_BUFFER_BIT | oogl.DEPTH_BUFFER_BIT);
 
-		function drawModules(component) {
-			for (var id in transforms) {
-				program.uniform1i('moduleId', parseInt(id, 10));
-				program.uniformMat4('transform', transforms[id].transform);
-				modules.draw(id, component);
+		modules.forEachComponent(function (componentId) {
+			for (var moduleId in transforms) {
+				program.uniform1i('moduleId', parseInt(moduleId, 10));
+				program.uniformMat4('transform', transforms[moduleId].transform);
+				modules.draw(moduleId, componentId);
 			}
-		}
-
-		drawModules('walls');
-		drawModules('frames');
-		drawModules('glasses');
+		});
 
 		oogl.flush();
 
-		var pixels = new Uint8Array(width * height * 4);
-		oogl.readPixels(0, 0, width, height, oogl.RGBA, oogl.UNSIGNED_BYTE, pixels);
-		framebuffer._delete();
+		//var pixels = new Uint8Array(width * height * 4);
+		//oogl.readPixels(0, 0, width, height, oogl.RGBA, oogl.UNSIGNED_BYTE, pixels);
+		//framebuffer._delete();
 
 		oogl.enable(oogl.DEPTH_TEST);
 
@@ -121,15 +117,14 @@ function Level(assets, modules) {
 		program.use();
 		program.uniform1f('screenRatio', width / height);
 		camera.uniform(program);
-		drawModule(program, 1, componentId);
-		//var moduleId = map.getModuleId(camera.getX(), camera.getZ());
-		//if (moduleId in transforms) {
-		//	drawModule(program, moduleId, componentId);
-		//	var mates = level.modules[moduleId].mates;
-		//	for (var i = 0; i < mates.length; i++) {
-		//		drawModule(program, mates[i], componentId);
-		//	}
-		//}
+		var moduleId = map.getModuleId(camera.getX(), camera.getZ());
+		if (moduleId in transforms) {
+			drawModule(program, moduleId, componentId);
+			var mates = level.modules[moduleId].mates;
+			for (var i = 0; i < mates.length; i++) {
+				drawModule(program, mates[i], componentId);
+			}
+		}
 	}
 
 	this.draw = function (camera) {
